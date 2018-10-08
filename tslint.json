@@ -9,7 +9,10 @@
     ]
   },
   "rules": {
-    "quotemark": [true, "single"],
+    "arrow-parens": false,
+    "max-classes-per-file": false,
+    "trailing-comma": false,
+    "quotemark": [true, "double"],
     "indent": [true, "spaces", 2],
     "interface-name": false,
     "ordered-imports": false,
