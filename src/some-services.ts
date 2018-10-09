@@ -26,7 +26,8 @@ let warriorCount = 0;
 @injectable()
 export class Warrior implements IWarrior {
   public static readonly registration: IRegistration = {
-    key: "warrior"
+    key: "warrior",
+    provide: true
   };
 
   public name = `Warrior #${++warriorCount}`;

@@ -2,6 +2,10 @@ import { Container } from "inversify";
 import Vue from "vue";
 import _ from "lodash";
 
+import { check } from "./check";
+
+check.that(1).isKey("id");
+
 export enum LifeCycles {
   transient,
   singleton,
@@ -10,15 +14,16 @@ export enum LifeCycles {
 export interface IRegistration {
   key: string;
   lifeCycle?: LifeCycles;
+  provide?: boolean;
 }
 
 type Provide = { [key: string]: string | object };
 
 export class Bootstrapper {
-  public static readonly RegistationProperty = "registration";
-  public static readonly ContainerRegistrationKey = "container";
+  public static readonly registationProperty = "registration";
+  public static readonly containerRegistrationKey = "container";
   public static readonly containerRegistration: IRegistration = {
-    key: Bootstrapper.ContainerRegistrationKey
+    key: Bootstrapper.containerRegistrationKey
   };
 
   public bootstrap(): object {
@@ -30,16 +35,16 @@ export class Bootstrapper {
 
   private createContainer(provide: Provide): Container {
     const container = new Container();
-    provide[Bootstrapper.ContainerRegistrationKey] = container;
+    provide[Bootstrapper.containerRegistrationKey] = container;
     container
-      .bind(Bootstrapper.ContainerRegistrationKey)
+      .bind(Bootstrapper.containerRegistrationKey)
       .toConstantValue(container);
     return container;
   }
 
   private autoRegister(identifiers: Provide, container: Container): void {
     container
-      .bind(Bootstrapper.ContainerRegistrationKey)
+      .bind(Bootstrapper.containerRegistrationKey)
       .toConstantValue(container);
 
     const ctx = require.context("/", true);
@@ -65,7 +70,7 @@ export class Bootstrapper {
         }
         const registration = _.get(
           exported,
-          Bootstrapper.RegistationProperty
+          Bootstrapper.registationProperty
         ) as IRegistration;
         if (registration && registration.key) {
           this.registerService(
@@ -92,7 +97,6 @@ export class Bootstrapper {
         `Duplicate serviceKey "${registration.key}" in ${moduleName}`
       );
     }
-    provide[registration.key] = exported;
     const binding = container.bind(registration.key).to(exported);
     if (registration.lifeCycle !== undefined) {
       switch (registration.lifeCycle) {
@@ -104,8 +108,12 @@ export class Bootstrapper {
           break;
         case LifeCycles.singleton:
           binding.inSingletonScope();
+          provide[registration.key] = container.get(registration.key);
           break;
       }
+    }
+    if (registration.provide) {
+      provide[registration.key] = () => container.get(registration.key);
     }
   }
 
