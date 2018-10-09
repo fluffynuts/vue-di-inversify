@@ -2,6 +2,9 @@
 <div>
     <div v-if="weatherResponse">
         {{ weather }}
+
+    <weather-details :weather="details"></weather-details>
+
     </div>
     <div v-else>
         (waiting for weather data)
@@ -17,7 +20,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import { queryExecutor } from "../query-executor";
-import { IWeatherResponse, WeatherQuery } from "../weather-query";
+import { IWeatherResponse, WeatherQuery, IWeatherItemOverview } from "../weather-query";
 
 @Component({
   name: "weather"
@@ -28,6 +31,7 @@ export default class WeatherComponent extends Vue {
       ? this.weatherResponse.weather[0].main
       : null;
   }
+  public details: IWeatherItemOverview | null = null;
   private weatherResponse: IWeatherResponse | null = null;
 
   public async mounted() {
@@ -35,9 +39,11 @@ export default class WeatherComponent extends Vue {
   }
 
   public async refresh() {
+      this.weatherResponse = null;
     this.weatherResponse = await queryExecutor.execute(
       new WeatherQuery("Durban")
     );
+    this.details = this.weatherResponse.weather[0];
   }
 }
 </script>
