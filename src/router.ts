@@ -13,7 +13,7 @@ export default new Router({
       component: Home,
     },
     {
-      path: "/about",
+      path: "/about/:city",
       name: "about",
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -21,7 +21,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ "./views/About.vue"),
     },
     {
-      path: "/weather",
+      path: "/weather/:city",
       name: "weather",
       component: WeatherComponent
     }

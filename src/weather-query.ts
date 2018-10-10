@@ -6,7 +6,7 @@ const apiKey = "2b8e7ea0a587152c9dbb0752edc8977f";
 export interface IWeatherResponse {
   dt: number;
   main: IWeatherItemMain;
-  weather: IWeatherItemOverview[];
+  weather: IWeatherDetail[];
   clouds: IClouds;
   wind: IWind;
   snow: ISnow;
@@ -32,7 +32,7 @@ export interface ISys {
   pod: string;
 }
 
-export interface IWeatherItemOverview {
+export interface IWeatherDetail {
   id: number;
   main: string;
   description: string;

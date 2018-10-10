@@ -19,6 +19,7 @@
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
     "interface-over-type-literal": false,
+    "one-variable-per-declaration": false,
     "variable-name": [
       true,
       "allow-leading-underscore"
