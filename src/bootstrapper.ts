@@ -119,6 +119,7 @@ export class Bootstrapper {
 
   private registerComponent(exported: object): void {
     const tag = _.get(exported, "extendOptions.name");
+    // there should be a safeguard against re-used tags
     if (tag) {
       Vue.component(tag, exported);
     }

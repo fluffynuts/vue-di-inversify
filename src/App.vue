@@ -41,7 +41,7 @@ const bootstrapper = new Bootstrapper();
 const provide = bootstrapper.bootstrap();
 
 @Component({
-  name: "App",
+  name: "app",
   components: { SubAbout },
   provide
 })

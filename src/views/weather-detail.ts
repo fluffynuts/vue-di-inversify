@@ -15,3 +15,4 @@ export default class WeatherDetails extends Vue {
     return `http://openweathermap.org/img/w/${this.weather.icon}.png`;
   }
 }
+

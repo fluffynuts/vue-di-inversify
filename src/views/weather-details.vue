@@ -10,3 +10,4 @@
 
 <script lang="ts" src="./weather-detail.ts">
 </script>
+
