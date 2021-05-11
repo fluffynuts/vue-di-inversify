@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "inversify": "^4.13.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.12",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
