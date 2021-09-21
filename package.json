@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "inversify": "^4.13.0",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.12",
